@@ -1,0 +1,15 @@
+{
+  "todos": [
+    {
+      "title": "Do Todo app in angular",
+      "completed": false,
+      "id": "XhYnlhEgtqo"
+    },
+    {
+      "title": "Do Admin page app in angular",
+      "completed": true,
+      "id": "sMRUHbzJlBU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

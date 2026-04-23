@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  @if (todo()) {
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">{{ todo()!.title }}</h3>
+        <p class="card-text">
+          Status:
+          <span [class]="todo()!.completed ? 'badge bg-success' : 'badge bg-warning'">
+            {{ todo()!.completed ? 'Completed' : 'Active' }}
+          </span>
+        </p>
+        <p class="card-text"><strong>ID:</strong> {{ todo()!.id }}</p>
+      </div>
+    </div>
+  } @else {
+    <p>Loading...</p>
+  }
+
+  <button class="btn btn-secondary mt-3" (click)="goBack()">← Back to List</button>
+</div>

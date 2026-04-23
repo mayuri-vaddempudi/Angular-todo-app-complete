@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <h2>Todo App</h2>
+
+  <!-- Add Todo Form -->
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Enter a todo..."
+      [formControl]="todoInput"
+    />
+    <button class="btn btn-primary" (click)="addTodo()" [disabled]="todoInput.invalid">Add</button>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="btn-group mb-3">
+    <button
+      class="btn"
+      [class.btn-primary]="filter() === 'all'"
+      [class.btn-outline-primary]="filter() !== 'all'"
+      (click)="setFilter('all')"
+    >
+      All
+    </button>
+    <button
+      class="btn"
+      [class.btn-primary]="filter() === 'active'"
+      [class.btn-outline-primary]="filter() !== 'active'"
+      (click)="setFilter('active')"
+    >
+      Active
+    </button>
+    <button
+      class="btn"
+      [class.btn-primary]="filter() === 'completed'"
+      [class.btn-outline-primary]="filter() !== 'completed'"
+      (click)="setFilter('completed')"
+    >
+      Completed
+    </button>
+  </div>
+
+  <!-- Todo List -->
+  <ul class="list-group">
+    @for (todo of filteredTodos(); track todo.id) {
+      <li class="list-group-item d-flex align-items-center gap-2">
+        <!-- EDIT MODE -->
+        @if (editingId() === todo.id) {
+          <input type="text" class="form-control form-control-sm" [formControl]="editInput" />
+          <button class="btn btn-success btn-sm" (click)="saveEdit(todo)">Save</button>
+          <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+
+          <!-- VIEW MODE -->
+        } @else {
+          <input type="checkbox" [checked]="todo.completed" (change)="toggleComplete(todo)" />
+          <span
+            [style.textDecoration]="todo.completed ? 'line-through' : 'none'"
+            [style.color]="todo.completed ? 'gray' : 'black'"
+            class="flex-grow-1"
+            style="cursor: pointer"
+            [routerLink]="['/todo', todo.id]"
+          >
+            {{ todo.title }}
+          </span>
+          <button class="btn btn-warning btn-sm" (click)="startEdit(todo)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteTodo(todo.id!)">Delete</button>
+        }
+      </li>
+    }
+
+    @if (filteredTodos().length === 0) {
+      <li class="list-group-item text-center text-muted">No todos found</li>
+    }
+  </ul>
+
+  <p class="mt-2 text-muted">{{ filteredTodos().length }} todo(s) shown</p>
+</div>
