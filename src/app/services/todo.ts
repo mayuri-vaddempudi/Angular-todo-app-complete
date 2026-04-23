@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class TodoService {
-  private apiUrl = '${environment.apiUrl}/todos`'
+  private apiUrl = 'https://json-api-uhll.onrender.com/todos';
 
   constructor(private http:HttpClient){}
   getTodos(){
